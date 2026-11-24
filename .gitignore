@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.DS_Store
+.ipynb_checkpoints/
+
+# outputs and data are never committed
+output/
+data/
+simulations/engineered_dynamics/data/
+simulations/engineered_dynamics/figs/
+simulations/engineered_dynamics/logs/

@@ -1,0 +1,15 @@
+# Environment for paper/ (figures, tables, tools).  The Fig 6 simulations
+# (simulations/engineered_dynamics) also need jax; see their README.
+name: levitation-paper
+channels:
+  - conda-forge
+dependencies:
+  - python>=3.10
+  - numpy>=1.26
+  - scipy>=1.11
+  - matplotlib>=3.8
+  - pandas>=2.0
+  - pyyaml
+  - pip
+  - pip:
+      - cmasher>=1.6

@@ -34,7 +34,7 @@ which also added the panel letters; panels marked *drawn* have no code.
 | SI, spacing grows to the edge | a–c | `python figures/si_rdf.py` |
 | SI, non-dispersive lines | a–f | `python figures/si_stripes.py` |
 | SI table, dispersion fits | | `python figures/tables.py dispersion` |
-| SI table, ‖D⁻‖/‖D⁺‖ vs number of modes | | `python figures/tables.py inference` |
+| SI table, $\Vert D^- \Vert / \Vert D^+ \Vert$ vs number of modes | | `python figures/tables.py inference` |
 | SI, engineered activity under pre-stress | | `simulations/engineered_dynamics/scripts/plot_fig_prestress_existing.py` (not yet refactored) |
 | SI, force summation rule | | drawn |
 
@@ -50,34 +50,28 @@ Fig 6's raft simulations themselves run on a cluster: see `simulations/engineere
 |---|---|
 | `config` | data and output folders, frame rate (3000 fps), the five rafts |
 | `io`, `rafts` | trajectories of raft A (and its cache); rafts B–E from the tracker files |
-| `lattice` | Delaunay neighbours, 5/7 defects, closed nearest-neighbour shells, ψ6, lattice spacing ℓ |
+| `lattice` | Delaunay neighbours, 5/7 defects, closed nearest-neighbour shells, $\psi_6$, lattice spacing $\ell$ |
 | `modes` | rigid-motion removal, PCA, winding numbers, cycling matrix, phase-randomised surrogates |
 | `spectra`, `dispersion` | velocity-flux spectra, ridge extraction, spring-lattice dispersion fits |
 | `minimal_model` | the three-body force law: finite rafts, dynamical matrices, lattice dispersion |
 | `trimers` | COMSOL three-particle data and the minimal-model coefficients measured from them |
-| `inference` | dynamical matrix inferred from trajectories, ‖D⁻‖/‖D⁺‖, surrogate noise floor |
+| `inference` | dynamical matrix inferred from trajectories, $\Vert D^- \Vert / \Vert D^+ \Vert$, surrogate noise floor |
 | `comsol` | COMSOL lattice Jacobians and the COMSOL dynamical matrix at the experimental configuration |
 | `plotting` | panel saving, LOESS trends |
 
 ## Conventions
 
 - **Frame rate** 3000 fps for every experimental time and frequency axis.
-- **Lattice spacing**, as in the published figures. The raft-average spacing ℓ is the median
-  Delaunay bond length (54.01 µm for raft A, from its mean positions); it is the length unit of
-  Fig 5, the SI stripes and the dispersion table's ℓ column and sound speeds. Two places use other
-  spacings: Fig 4b's wavevector axis uses the first peak of g(r) (52.48 µm), and the dispersion
-  fits and SI raft spectra use each raft's median closest-neighbour distance a.
-- **Minimal-model coefficients** are a first-order expansion about 54.01 µm, the median
+- **Lattice spacing**, as in the published figures. The raft-average spacing $\ell$ is the median
+  Delaunay bond length ($54.01~\mu\mathrm{m}$ for raft A, from its mean positions); it is the length unit of
+  Fig 5, the SI stripes and the dispersion table's $\ell$ column and sound speeds. Two places use other
+  spacings: Fig 4b's wavevector axis uses the first peak of $g(r)$ ($52.48~\mu\mathrm{m}$), and the dispersion
+  fits and SI raft spectra use each raft's median closest-neighbour distance $a$.
+- **Minimal-model coefficients** are a first-order expansion about $54.01~\mu\mathrm{m}$, the median
   nearest-neighbour bond of raft A, measured from the COMSOL 950-configuration phase scan
   (`levitation/trimers.py`; `figures/fig3.py` prints them with uncertainties).
 - **Defects** are Delaunay coordination numbers, counted only where a particle's nearest-neighbour
-  shell closes (Delaunay triangles with sides < 1.45 ℓ), so the free edge is not marked.
-
-## Checking against the published numbers
-
-`python tools/compare.py all` compares the outputs with a frozen run of the original analysis
-scripts (`$LEVITATION_OUT/reference_2026-11-23/`, not distributed) and with the numbers those
-scripts printed (listed in `tools/compare.py`).
+  shell closes (Delaunay triangles with sides $< 1.45\,\ell$), so the free edge is not marked.
 
 ## Data (not in git)
 
@@ -90,8 +84,7 @@ Read from `$LEVITATION_DATA`:
 - `comsol_dynamical_matrix.mat`, `comsol_exp_permutation.npz`: COMSOL matrix at the experimental configuration (SI stripes)
 - `phase_scan_result2.mat`, `41um_particle/three_body_data_41um.pkl`: COMSOL three-particle simulations (Fig 3, coefficients)
 
-The data will be deposited with the published version of the paper; a manifest with checksums will
-be added here then.
+The data will be deposited with the published version of the paper.
 
 ## Citation
 

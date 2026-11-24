@@ -34,12 +34,8 @@ class Trajectories:
 
 
 def raw_file(tag="A"):
-    """Path of a raft's tracker file (pickled DataFrame) in DATA/expt_trajs (or DATA)."""
-    name = config.RAFTS[tag][0]
-    for p in (os.path.join(config.DATA, "expt_trajs", name), os.path.join(config.DATA, name)):
-        if os.path.exists(p):
-            return p
-    raise FileNotFoundError(f"{name} not found in {config.DATA} or {config.DATA}/expt_trajs")
+    """Path of a raft's trajectory file (pickled DataFrame), see config.raw_trajectory."""
+    return config.raw_trajectory(tag)
 
 
 def _build_cache_from_raw(path_out):

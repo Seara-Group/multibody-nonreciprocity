@@ -77,14 +77,18 @@ Fig 6's raft simulations themselves run on a cluster: see `simulations/engineere
 
 Read from `$LEVITATION_DATA`:
 
-- `27060_crystal_1_phonon.txt` (or `expt_trajs/`), `_traj_cache_all.npz`: raft A trajectories and their cache
-- `expt_trajs/`: rafts B–E
+- `expt_trajs/raft_<X>_<diameter>_<drive>.pkl`: the particle tracker's output for rafts A–E, one pickled
+  pandas DataFrame per experiment (columns `x`, `y`, `radius` in pixels, `frame`, `label`)
+- `_traj_cache_all.npz`: raft A's trajectories in a fast-loading form (rebuilt from the raw file if absent)
 - `_raft_spectra_cache/`: the Welch segments the dispersion fits use (fixed on 2026-10-05; the fits depend on exactly these)
 - `phonon_data.csv`, `force_jacobian/`: experimental sound speeds and COMSOL lattice Jacobians (Fig 4c)
 - `comsol_dynamical_matrix.mat`, `comsol_exp_permutation.npz`: COMSOL matrix at the experimental configuration (SI stripes)
 - `phase_scan_result2.mat`, `41um_particle/three_body_data_41um.pkl`: COMSOL three-particle simulations (Fig 3, coefficients)
 
-The data will be deposited with the published version of the paper.
+Fig 6 reads the simulation runs in `$LEVITATION_ENGINEERED_RUNS` (`<run>/<run>.npz` and `<run>_params.yaml`).
+
+`tools/prepare_data_deposit.py` collects exactly these files, with a `MANIFEST.txt` of sizes and
+SHA-256 checksums. The data will be deposited with the published version of the paper.
 
 ## Citation
 

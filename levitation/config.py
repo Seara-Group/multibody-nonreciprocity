@@ -28,13 +28,32 @@ DT = 1.0 / FRAME_RATE        # s
 DIAMETER_UM = 41.1
 
 # The experiments: tag -> (trajectory file in DATA/expt_trajs, particle diameter um, label).
+# Each file is the particle tracker's output for one experiment: a pickled pandas DataFrame with
+# columns x, y (px), radius (px), frame, label.
 RAFTS = {
-    "A": ("27060_crystal_1_phonon.txt", 41.1, "41.1 µm, 34.7 kHz"),
-    "B": ("2025123001 64.54kHz 9Vpp raft 41.11um.txt", 41.11, "41.1 µm, 64.5 kHz"),
-    "C": ("27060_60um_348khz.txt", 59.7, "59.7 µm, 34.7 kHz"),
-    "D": ("2025123002 64.41kHz 10Vpp raft 59.70um.txt", 59.7, "59.7 µm, 64.4 kHz"),
-    "E": ("27060_32um_348khz.txt", 32.0, "32 µm, 34.8 kHz"),
+    "A": ("raft_A_41.1um_34.7kHz.pkl", 41.1, "41.1 µm, 34.7 kHz"),
+    "B": ("raft_B_41.1um_64.5kHz.pkl", 41.11, "41.1 µm, 64.5 kHz"),
+    "C": ("raft_C_59.7um_34.7kHz.pkl", 59.7, "59.7 µm, 34.7 kHz"),
+    "D": ("raft_D_59.7um_64.4kHz.pkl", 59.7, "59.7 µm, 64.4 kHz"),
+    "E": ("raft_E_32um_34.8kHz.pkl", 32.0, "32 µm, 34.8 kHz"),
 }
+# The same files under the names the tracker gave them (still accepted).
+TRACKER_NAMES = {
+    "A": "27060_crystal_1_phonon.txt",
+    "B": "2025123001 64.54kHz 9Vpp raft 41.11um.txt",
+    "C": "27060_60um_348khz.txt",
+    "D": "2025123002 64.41kHz 10Vpp raft 59.70um.txt",
+    "E": "27060_32um_348khz.txt",
+}
+
+
+def raw_trajectory(tag):
+    """Path of a raft's trajectory file: DATA/expt_trajs (or DATA), deposited or tracker name."""
+    for name in (RAFTS[tag][0], TRACKER_NAMES[tag]):
+        for d in (os.path.join(DATA, "expt_trajs"), DATA):
+            if os.path.exists(os.path.join(d, name)):
+                return os.path.join(d, name)
+    raise FileNotFoundError(f"raft {tag}: neither {RAFTS[tag][0]} nor {TRACKER_NAMES[tag]} in {DATA}/expt_trajs")
 
 
 # Fig 6: the engineered-dynamics runs (simulations/engineered_dynamics writes them to

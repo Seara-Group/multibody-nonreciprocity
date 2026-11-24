@@ -111,11 +111,8 @@ class Raft:
 
     def __init__(self, tag):
         self.tag = tag
-        fn, self.D_um, self.label = config.RAFTS[tag]
-        path = os.path.join(config.DATA, "expt_trajs", fn)
-        if not os.path.exists(path):
-            path = os.path.join(config.DATA, fn)
-        self.col, self._h = load_columns(path)
+        _, self.D_um, self.label = config.RAFTS[tag]
+        self.col, self._h = load_columns(config.raw_trajectory(tag))
         self.x, self.y, fr = self.col["x"], self.col["y"], self.col["frame"]
         self.f0 = int(fr[0])
         self.T = int(fr[-1]) - self.f0 + 1

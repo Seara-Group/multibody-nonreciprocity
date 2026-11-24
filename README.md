@@ -9,7 +9,7 @@ figure in `figures/`, built on a small package of shared routines in `levitation
 
 ```bash
 conda env create -f environment.yml && conda activate levitation-paper   # or any env with these packages
-export LEVITATION_DATA=/path/to/data                   # input data (not in git; see "Data")
+export LEVITATION_DATA=/path/to/data                   # input data (see "Data")
 export LEVITATION_OUT=/path/to/output                  # optional; default output/ in this folder
 export LEVITATION_ENGINEERED_RUNS=/path/to/runs        # Fig 6 only: the runs of simulations/engineered_dynamics
 ```
@@ -73,7 +73,17 @@ Fig 6's raft simulations themselves run on a cluster: see `simulations/engineere
 - **Defects** are Delaunay coordination numbers, counted only where a particle's nearest-neighbour
   shell closes (Delaunay triangles with sides $< 1.45\,\ell$), so the free edge is not marked.
 
-## Data (not in git)
+## Data
+
+The data are on the Materials Data Facility: [doi:10.18126/z5pn-n620](https://doi.org/10.18126/z5pn-n620).
+Unzip `data.zip` and `engineered_dynamics.zip`, then set
+
+```bash
+export LEVITATION_DATA=/path/to/data
+export LEVITATION_ENGINEERED_RUNS=/path/to/engineered_dynamics/runs
+```
+
+Each folder has a `MANIFEST.txt` with every file's size and SHA-256 checksum.
 
 Read from `$LEVITATION_DATA`:
 
@@ -87,8 +97,9 @@ Read from `$LEVITATION_DATA`:
 
 Fig 6 reads the simulation runs in `$LEVITATION_ENGINEERED_RUNS` (`<run>/<run>.npz` and `<run>_params.yaml`).
 
-`tools/prepare_data_deposit.py` collects exactly these files, with a `MANIFEST.txt` of sizes and
-SHA-256 checksums. The data will be deposited with the published version of the paper.
+The SI pre-stress figure also reads `engineered_dynamics/summary.csv`
+(`plot_fig_prestress_existing.py --summary`). `tools/prepare_data_deposit.py` is the script that
+assembled the deposit from these files.
 
 ## Citation
 
